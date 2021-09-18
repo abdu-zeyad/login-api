@@ -1,18 +1,10 @@
-from rest_framework.generics import (
-    ListCreateAPIView,
-    RetrieveUpdateDestroyAPIView,
-)
-from .models import Thing
-from .permissions import IsOwnerOrReadOnly
-from .serializers import ThingSerializer
+from rest_framework import viewsets
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
+from django.contrib.auth.models import User
+from .serializers import UserSerializer
 
 
-class ThingList(ListCreateAPIView):
-    queryset = Thing.objects.all()
-    serializer_class = ThingSerializer
-
-
-class ThingDetail(RetrieveUpdateDestroyAPIView):
-    permission_classes = (IsOwnerOrReadOnly,)
-    queryset = Thing.objects.all()
-    serializer_class = ThingSerializer
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer

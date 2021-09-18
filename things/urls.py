@@ -1,7 +1,13 @@
+from django.contrib import admin
 from django.urls import path
-from .views import ThingList, ThingDetail
+from django.conf.urls import include
+from rest_framework import routers
+from .views import UserViewSet
+
+router = routers.DefaultRouter()
+router.register("users", UserViewSet)
+
 
 urlpatterns = [
-    path("", ThingList.as_view(), name="thing_list"),
-    path("<int:pk>/", ThingDetail.as_view(), name="thing_detail"),
+    path("", include(router.urls)),
 ]
